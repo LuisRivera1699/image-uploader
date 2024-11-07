@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
+const { put } = require("@vercel/blob");
 
 const app = express();
 app.use(cors());
@@ -22,9 +23,11 @@ const upload = multer({ storage });
 // Endpoint para recibir y almacenar la imagen
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.post("/upload", upload.single("file"), (req, res) => {
-    console.log("post");
-    res.json({ location: `/uploads/${req.file.filename}` });
+app.post("/upload", async (req, res) => {
+    const b = await put(req.file.filename, req.body, {
+        access: 'public',
+    });
+    res.json({ location: `${b}` });
 });
 
 app.listen(PORT, () => {
