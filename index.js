@@ -24,7 +24,7 @@ const upload = multer({ storage });
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.post("/upload", async (req, res) => {
-    console.log(req.body);
+    console.log(req.params);
     const b = await put(req.params.filename, req, {
         access: 'public',
     });
