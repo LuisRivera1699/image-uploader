@@ -28,7 +28,7 @@ app.post("/upload", async (req, res) => {
     const b = await put(req.query.filename, req, {
         access: 'public',
     });
-    res.json({ location: `${b}` });
+    res.json({ location: `${b.url}` });
 });
 
 app.listen(PORT, () => {
