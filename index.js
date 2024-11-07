@@ -25,7 +25,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.post("/upload", async (req, res) => {
     console.log(req.body);
-    const b = await put(req.params.filename, req.body, {
+    const b = await put(req.params.filename, req, {
         access: 'public',
     });
     res.json({ location: `${b}` });
